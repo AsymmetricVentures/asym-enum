@@ -45,10 +45,7 @@ setup(
 	install_requires = (
 		'django>=1.4.5',
 		'six',
-		'asymmetricbase.forms'
 	),
-	
-	dependency_links = ['https://github.com/AsymmetricVentures/asym-fields.git#egg=asymmetricbase.forms'],
 	
 	package_dir = {
 		'asymmetricbase' : 	'asymmetricbase',
