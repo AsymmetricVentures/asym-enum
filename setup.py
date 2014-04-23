@@ -33,7 +33,7 @@ Topic :: Software Development :: Libraries :: Application Frameworks
 
 setup(
 	name = 'asymmetricbase.enum',
-	version = datetime.now().strftime('%Y%m%d%H%M'),
+	version = '0.1.0-{}'.format(datetime.now().strftime('%Y%m%d%H%M')),
 	url = 'https://github.com/AsymmetricVentures/asym-enum',
 	
 	author = 'Richard Eames',
