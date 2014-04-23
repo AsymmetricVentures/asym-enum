@@ -163,6 +163,12 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 		return EnumFormField(**defaults)
 	
 	def deconstruct(self):
+		name, path, args, kwargs = super().deconstruct()
+		kwargs['enum'] = self.enum
+		kwargs['default'] = self.get_default()
+		
+		return name, path, args, kwargs
+		
 		return (
 			'asymmetricbase.fields.enumfield.EnumField',
 			[],

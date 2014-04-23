@@ -31,7 +31,7 @@ License :: OSI Approved :: GNU General Public License v2 (GPLv2)
 Topic :: Software Development :: Libraries :: Application Frameworks
 """
 
-version = '0.1.0'
+version = '0.1.1'
 url = 'https://github.com/AsymmetricVentures/asym-enum'
 
 setup(
@@ -39,12 +39,14 @@ setup(
 	version = '{}-{}'.format(version, datetime.now().strftime('%Y%m%d%H%M')),
 	url = url,
 	download_url = '{}/archive/v{}.tar.gz'.format(url, version),
-	
 	author = 'Richard Eames',
 	author_email = 'reames@asymmetricventures.com',
 	packages = find_packages(),
 	classifiers = list(filter(None, classifiers.split('\n'))),
 	namespace_packages = ['asymmetricbase'],
+	
+	license = 'GPLv2',
+	description = 'Java style enums for Python',
 	
 	install_requires = (
 		'django>=1.4.5',
