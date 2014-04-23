@@ -31,11 +31,14 @@ License :: OSI Approved :: GNU General Public License v2 (GPLv2)
 Topic :: Software Development :: Libraries :: Application Frameworks
 """
 
+version = '0.1.0'
+url = 'https://github.com/AsymmetricVentures/asym-enum'
+
 setup(
 	name = 'asymmetricbase.enum',
-	version = '0.1.0-{}'.format(datetime.now().strftime('%Y%m%d%H%M')),
-	url = 'https://github.com/AsymmetricVentures/asym-enum',
-	download_url = 'https://github.com/AsymmetricVentures/asym-enum/archive/v0.1.0.tar.gz',
+	version = '0.1.0-{}'.format(version, datetime.now().strftime('%Y%m%d%H%M')),
+	url = url,
+	download_url = '{}/archive/v{}.tar.gz'.format(url, version),
 	
 	author = 'Richard Eames',
 	author_email = 'reames@asymmetricventures.com',
