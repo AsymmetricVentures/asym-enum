@@ -35,11 +35,12 @@ setup(
 	name = 'asymmetricbase.enum',
 	version = '0.1.0-{}'.format(datetime.now().strftime('%Y%m%d%H%M')),
 	url = 'https://github.com/AsymmetricVentures/asym-enum',
+	download_url = 'https://github.com/AsymmetricVentures/asym-enum/archive/v0.1.0.tar.gz',
 	
 	author = 'Richard Eames',
 	author_email = 'reames@asymmetricventures.com',
 	packages = find_packages(),
-	classifiers = filter(None, classifiers.split('\n')),
+	classifiers = list(filter(None, classifiers.split('\n'))),
 	namespace_packages = ['asymmetricbase'],
 	
 	install_requires = (
