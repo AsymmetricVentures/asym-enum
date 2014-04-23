@@ -36,7 +36,7 @@ url = 'https://github.com/AsymmetricVentures/asym-enum'
 
 setup(
 	name = 'asymmetricbase.enum',
-	version = '0.1.0-{}'.format(version, datetime.now().strftime('%Y%m%d%H%M')),
+	version = '{}-{}'.format(version, datetime.now().strftime('%Y%m%d%H%M')),
 	url = url,
 	download_url = '{}/archive/v{}.tar.gz'.format(url, version),
 	
