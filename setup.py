@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#    Asymmetric Base Framework - A collection of utilities for django frameworks
+#    Asymmetric Base Framework :: Enum
 #    Copyright (C) 2013  Asymmetric Ventures Inc.
 #
 #    This program is free software; you can redistribute it and/or modify
@@ -31,11 +31,11 @@ License :: OSI Approved :: GNU General Public License v2 (GPLv2)
 Topic :: Software Development :: Libraries :: Application Frameworks
 """
 
-version = '0.1.1'
+version = '0.2.1'
 url = 'https://github.com/AsymmetricVentures/asym-enum'
 
 setup(
-	name = 'asymmetricbase.enum',
+	name = 'asymm-enum',
 	version = '{}-{}'.format(version, datetime.now().strftime('%Y%m%d%H%M')),
 	url = url,
 	download_url = '{}/archive/v{}.tar.gz'.format(url, version),
@@ -43,18 +43,17 @@ setup(
 	author_email = 'reames@asymmetricventures.com',
 	packages = find_packages(),
 	classifiers = list(filter(None, classifiers.split('\n'))),
-	namespace_packages = ['asymmetricbase'],
 	
 	license = 'GPLv2',
 	description = 'Java style enums for Python',
 	
 	install_requires = (
-		'django>=1.4.5',
 		'six',
 	),
 	
-	package_dir = {
-		'asymmetricbase' : 	'asymmetricbase',
+	extras_require = {
+		'django' : ['django>=1.4.5']
 	},
-	package_data = {'' : ['*.djhtml']}
+	
+	test_suite = 'tests',
 )

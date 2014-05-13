@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#    Asymmetric Base Framework - A collection of utilities for django frameworks
+#    Asymmetric Base Framework :: Enum
 #    Copyright (C) 2013  Asymmetric Ventures Inc.
 #
 #    This program is free software; you can redistribute it and/or modify
@@ -19,14 +19,14 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import six
 
+from asymm_enum.enum import Enum, EnumItem
 from django import forms
-from django.db import models
 from django.core import exceptions
+from django.db import models
 from django.db.models.fields import NOT_PROVIDED
 from django.db.models.fields.subclassing import SubfieldBase
 from django.utils.encoding import smart_text
 
-from asymmetricbase.enum import Enum, EnumItem
 
 def _enum_coerce(self, enum, value):
 	if value is None:
@@ -170,7 +170,7 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 		return name, path, args, kwargs
 		
 		return (
-			'asymmetricbase.fields.enumfield.EnumField',
+			'asymm_enum.fields.enumfield.EnumField',
 			[],
 			{
 				'enum' : repr(self.enum),
@@ -208,7 +208,7 @@ try:
 				}
 			)
 		],
-		['^asymmetricbase\.fields\.enumfield\.EnumField']
+		['^asymm_enum\.fields\.enumfield\.EnumField']
 	)
 except ImportError:
 	pass

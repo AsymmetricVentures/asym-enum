@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#    Asymmetric Base Framework - A collection of utilities for django frameworks
+#    Asymmetric Base Framework :: Enum
 #    Copyright (C) 2013  Asymmetric Ventures Inc.
 #
 #    This program is free software; you can redistribute it and/or modify
@@ -17,13 +17,13 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from django.test.client import RequestFactory
+from asymm_enum import forms
+from asymm_enum.fields.enumfield import EnumField
+from asymm_enum.testing.base_with_models import BaseTestCaseWithModels
+from asymm_enum.tests.models import TestEnum, TestEnumModel, TestEnumModelWithDefault, TestEnumModel1
 from django.forms.formsets import formset_factory
+from django.test.client import RequestFactory
 
-from asymmetricbase.testing.base_with_models import BaseTestCaseWithModels
-from asymmetricbase.tests.models import TestEnum, TestEnumModel, TestEnumModelWithDefault, TestEnumModel1
-from asymmetricbase import forms
-from asymmetricbase.fields.enumfield import EnumField
 
 class TestForm(forms.Form):
 	field1 = EnumField(TestEnum).formfield(required = True)
@@ -39,9 +39,9 @@ class TestModelWithDefaultForm(forms.ModelForm):
 		model = TestEnumModelWithDefault
 		fields = ('field1',)
 
-#class TestOldEnumForm(forms.ModelForm):
-#	class Meta(object):
-#		model = TestOldEnumModelWithDefault
+# class TestOldEnumForm(forms.ModelForm):
+# 	class Meta(object):
+# 		model = TestOldEnumModelWithDefault
 
 TestModelFormSet = forms.make_modelformset_factory(TestEnumModel1)
 TestFormSet = formset_factory(TestForm)
