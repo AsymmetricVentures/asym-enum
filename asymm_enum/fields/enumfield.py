@@ -115,7 +115,7 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 				default = self.default()
 			if default is None:
 				return None
-			if isinstance(default, (int, long)):
+			if isinstance(default, six.integer_types):
 				return default
 			return default.value
 		# If the field doesn't have a default, then we punt to models.Field.
@@ -168,15 +168,6 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 		kwargs['default'] = self.get_default()
 		
 		return name, path, args, kwargs
-		
-		return (
-			'asymm_enum.fields.enumfield.EnumField',
-			[],
-			{
-				'enum' : repr(self.enum),
-				'default' : self.get_default()
-			}
-		)
 
 try:
 	from south.modelsinspector import add_introspection_rules
