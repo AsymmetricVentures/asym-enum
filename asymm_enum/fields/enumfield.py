@@ -32,14 +32,13 @@ def _enum_coerce(self, enum, value):
 	if value is None:
 		return None
 	
-	elif value in enum:
+	elif isinstance(value, EnumItem) and value in enum:
 		return value
 	
 	try:
 		return enum(int(value))
 	except ValueError:
 		raise exceptions.ValidationError(self.error_messages['invalid'] % value)
-
 
 class EnumFormField(forms.TypedChoiceField):
 	
