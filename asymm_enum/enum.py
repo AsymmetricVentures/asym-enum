@@ -46,7 +46,9 @@ class EnumItem(object):
 	def __eq__(self, other):
 		if isinstance(other, type(self)):
 			return self.value == other.value
-		raise TypeError("Cannot compare different Enums")
+		# XXX: Must return False and not raise an error otherwise it
+		#      interferes with EnumField
+		return False
 	
 	def __hash__(self):
 		return hash((type(self), self.label, self.value))
@@ -134,7 +136,6 @@ class EnumMeta(type):
 			
 		new_attributes['Choices'] = Choices
 		EnumType = super(EnumMeta, cls).__new__(cls, name, bases, new_attributes)
-		
 		
 		for item in EnumType:
 			setattr(item, '_enum_type_', EnumType)

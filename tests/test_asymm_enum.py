@@ -127,9 +127,7 @@ class EnumTest(unittest.TestCase):
 		
 		self.assertListEqual(list(MyEnum4), [MyEnum4.A, MyEnum4.B, MyEnum4.UPPER_CASE_WORD])
 		self.assertIn(MyEnum4.A, MyEnum4)
-		
-		with self.assertRaises(TypeError):
-			_ = 1 in MyEnum4
+		self.assertNotIn(1, MyEnum4)
 	
 	def test_display_order(self):
 		class MyEnum6(Enum):
