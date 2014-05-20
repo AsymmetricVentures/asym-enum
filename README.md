@@ -122,6 +122,32 @@ r = pickle.loads(d)
 assert r == E.A, "Members can be pickled"
 ```
 
+### Django Model and Form Fields
+```python
+from django import forms
+from django.db import models
+
+from asymm_enum.enum import Enum
+from asymm_enum.fields.enumfield import EnumField
+
+class E(Enum):
+	A = 1
+	B = 2
+
+class MyModel(models.Model)
+	field1 = EnumField(E)
+	field2 = EnumField(E, default=E.B)
+
+class MyForm(forms.Form):
+	field1 = EnumField(E).formfield(required=False)
+	field2 = EnumField(E, default=E.B).formfield()
+
+class MyModelForm(forms.ModelForm):
+	class Meta:
+		model = MyModel
+		fields = ('field1',)
+
+```
 
 ## Differences from Python 3.4 Enum
 
@@ -136,5 +162,7 @@ assert r == E.A, "Members can be pickled"
 
 ## TODO:
 
-* Tests and documentation for the django field.
+* More complete test coverage
+* Testing for Django 1.7
+* Close the API gap with Python 3.4 Enums
 

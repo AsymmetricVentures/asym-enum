@@ -17,19 +17,20 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import six
-
-from asymm_enum.enum import Enum, EnumItem
 from django import forms
 from django.core import exceptions
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.fields import NOT_PROVIDED
 from django.db.models.fields.subclassing import SubfieldBase
 from django.utils.encoding import smart_text
+import six
+
+from asymm_enum.enum import Enum, EnumItem
 
 
 def _enum_coerce(self, enum, value):
-	if value is None:
+	if value is None or value == '':
 		return None
 	
 	elif isinstance(value, EnumItem) and value in enum:
@@ -38,7 +39,11 @@ def _enum_coerce(self, enum, value):
 	try:
 		return enum(int(value))
 	except ValueError:
-		raise exceptions.ValidationError(self.error_messages['invalid'] % value)
+		raise exceptions.ValidationError(
+			self.error_messages['invalid_choice'],
+			code = 'invalid_choice',
+			params = {'value' : value}
+		)
 
 class EnumFormField(forms.TypedChoiceField):
 	
@@ -74,7 +79,17 @@ class EnumFormField(forms.TypedChoiceField):
 					yield k2, v2
 			else:
 				yield k, v
-
+	
+	def _has_changed(self, initial, data):
+		initial_value = initial if initial is not None else ''
+		try:
+			data = self.to_python(data)
+		except ValidationError:
+			return True
+		data_value = str(data.value) if data is not None else ''
+		
+		return initial_value != data_value
+		
 class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 	
 	empty_strings_allowed = False
@@ -116,7 +131,7 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 				return None
 			if isinstance(default, six.integer_types):
 				return default
-			return default.value
+			return str(default.value)
 		# If the field doesn't have a default, then we punt to models.Field.
 		return super(EnumField, self).get_default()
 	
