@@ -168,8 +168,8 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 		
 		for k in kwargs.keys():
 			if k not in ('coerce', 'empty_value', 'choices', 'required',
-						 'widget', 'label', 'initial', 'help_text',
-						 'error_messages', 'show_hidden_initial'):
+						'widget', 'label', 'initial', 'help_text',
+						'error_messages', 'show_hidden_initial'):
 				del kwargs[k]
 		
 		defaults.update(**kwargs)
@@ -177,7 +177,7 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 		return EnumFormField(**defaults)
 	
 	def deconstruct(self):
-		name, path, args, kwargs = super().deconstruct()
+		name, path, args, kwargs = super(EnumField, self).deconstruct()
 		kwargs['enum'] = self.enum
 		kwargs['default'] = self.get_default()
 		
@@ -205,7 +205,7 @@ try:
 	add_introspection_rules(
 		[
 			(
-				[EnumField], # Field Name 
+				[EnumField], # Field Name
 				[], # Args
 				{ # kwargs
 					'enum' : ['enum', {'converter' : enum_converter, 'is_django_function' : True}],

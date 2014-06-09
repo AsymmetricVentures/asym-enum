@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #    Asymmetric Base Framework :: Enum
-#    Copyright (C) 2013  Asymmetric Ventures Inc.
+#    Copyright (C) 2013-2014  Asymmetric Ventures Inc.
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
