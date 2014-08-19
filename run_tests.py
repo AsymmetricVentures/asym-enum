@@ -51,14 +51,16 @@ def main():
 		DEBUG = True,
 		TEMPLATE_DEBUG = True,
 		MIDDLEWARE_CLASSES = (
+			'django.contrib.sessions.middleware.SessionMiddleware',
 			'django.contrib.messages.middleware.MessageMiddleware',
 		),
 		ROOT_URLCONF = 'testapp.urls'
 	)
+	apps = []
+	
 	if djv >= '1.7':
 		django.setup() #@UndefinedVariable
 	
-	apps = ['asymm_enum'] if djv > '1.5' else []
 	if djv >= '1.6':
 		apps.append('asymm_enum.tests.testapp')
 		apps.append('asymm_enum.tests')
