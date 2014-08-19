@@ -27,7 +27,7 @@ from ..fields.enumfield import EnumField
 from .testapp.models import TestEnumModel, TestEnum, TestEnumModelWithDefault
 
 
-if django.get_version >= '1.7':
+if django.get_version() >= '1.7':
 	from django.db import migrations  # NOQA
 	from django.db.migrations.writer import MigrationWriter  # NOQA
 	from django.utils import six  # NOQA

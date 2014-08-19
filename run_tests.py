@@ -49,6 +49,7 @@ def main():
 		},
 		DEBUG = True,
 		TEMPLATE_DEBUG = True,
+		MIDDLEWARE_CLASSES = ()
 	)
 	if django.get_version() >= '1.7':
 		django.setup() #@UndefinedVariable

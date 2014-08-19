@@ -28,7 +28,6 @@ import six
 
 from asymm_enum.enum import Enum, EnumItem
 
-
 def _enum_coerce(self, enum, value):
 	if value is None or value == '':
 		return None
@@ -130,6 +129,8 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 			if default is None:
 				return None
 			if isinstance(default, six.integer_types):
+				return default
+			if isinstance(default, six.string_types):
 				return default
 			return str(default.value)
 		# If the field doesn't have a default, then we punt to models.Field.
