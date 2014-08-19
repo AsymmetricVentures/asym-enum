@@ -76,7 +76,7 @@ class EnumMeta(type):
 			properties = ('value',) + properties
 		
 		item_attrs = {
-			'__repr__' : lambda self: '{}.{}'.format(name, self._enum_name_),
+			'__repr__' : lambda self: '{0}.{1}'.format(name, self._enum_name_),
 			'__reduce__' : lambda self: (self._enum_type_, (self.value,))
 		}
 		
@@ -120,7 +120,7 @@ class EnumMeta(type):
 			
 			items[k] = item_type_attrs
 		
-		ItemType = type(str('{}Item').format(name), (EnumItem,), item_attrs)
+		ItemType = type(str('{0}Item').format(name), (EnumItem,), item_attrs)
 		
 		for k, v in items.items():
 			new_attributes[k] = ItemType(**v)
@@ -145,17 +145,7 @@ class EnumMeta(type):
 	def __iter__(self):
 		return iter(self.reverse.values())
 
-def with_metaclass(meta, *bases):
-	class metaclass(meta):
-		__call__ = type.__call__
-		__init__ = type.__init__
-		def __new__(cls, name, this_bases, d):
-			if this_bases is None:
-				return type.__new__(cls, str(name), (), d)
-			return meta(str(name), bases, d)
-	return metaclass(str('temp'), None, {})
-
-class Enum(with_metaclass(EnumMeta)):
+class Enum(six.with_metaclass(EnumMeta)):
 	'''Baseclass for Enums. 
 	   ** DO NOT define methods in here'''
 	Choices = {}
@@ -164,7 +154,7 @@ class Enum(with_metaclass(EnumMeta)):
 		try:
 			return cls.reverse[value]
 		except KeyError:
-			raise ValueError('{} has no "{}" value'.format(cls.__name__, value))
+			raise ValueError('{0} has no "{1}" value'.format(cls.__name__, value))
 
 if __name__ == '__main__':
 	class MyEnum(Enum):

@@ -51,7 +51,7 @@ class FormTest(SimpleTestCase):
 		
 		form = TestModelForm(instance = model)
 		
-		substring_html = '<option value="{}" selected="selected">{}</option>'.format(
+		substring_html = '<option value="{0}" selected="selected">{1}</option>'.format(
 			int(TestEnum.VALUE2), str(TestEnum.VALUE2)
 		)
 		
@@ -60,7 +60,7 @@ class FormTest(SimpleTestCase):
 	def test_widget_with_initial(self):
 		form = TestModelWithDefaultForm()
 		
-		substring_html = '<option value="{}" selected="selected">{}</option>'.format(
+		substring_html = '<option value="{0}" selected="selected">{1}</option>'.format(
 			int(TestEnum.VALUE1), str(TestEnum.VALUE1)
 		)
 		

@@ -36,9 +36,9 @@ url = 'https://github.com/AsymmetricVentures/asym-enum'
 
 setup(
 	name = 'asymm-enum',
-	version = '{}-{}'.format(version, datetime.now().strftime('%Y%m%d%H%M')),
+	version = '{0}-{1}'.format(version, datetime.now().strftime('%Y%m%d%H%M')),
 	url = url,
-	download_url = '{}/archive/v{}.tar.gz'.format(url, version),
+	download_url = '{0}/archive/v{1}.tar.gz'.format(url, version),
 	author = 'Richard Eames',
 	author_email = 'reames@asymmetricventures.com',
 	packages = find_packages(),

@@ -189,9 +189,9 @@ try:
 	
 	def enum_converter(value):
 		if issubclass(value, Enum):
-			return 'Migration().gf("{}.{}")'.format(value.__module__, value.__name__)
+			return 'Migration().gf("{0}.{1}")'.format(value.__module__, value.__name__)
 		
-		raise ValueError("Unknown value type `{!r}` for enum argument".format(value))
+		raise ValueError("Unknown value type `{0!r}` for enum argument".format(value))
 	
 	def default_converter(value):
 		if isinstance(value, NOT_PROVIDED) or value is NOT_PROVIDED:
