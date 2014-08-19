@@ -17,7 +17,7 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import unittest
+from django.utils import unittest
 
 from asymm_enum.enum import Enum
 
@@ -85,11 +85,8 @@ class EnumTest(unittest.TestCase):
 		self.assertEqual(E.A.mylabel(), 'A')
 		self.assertEqual(E.getBLabel(), 'B')
 		
-		with self.assertRaises(AttributeError):
-			E.A.getBLabel()
-		
-		with self.assertRaises(AttributeError):
-			E.mylabel()
+		self.assertRaises(AttributeError, lambda: E.A.getBLabel())
+		self.assertRaises(AttributeError, lambda: E.mylabel())
 	
 	def test_comparitor(self):
 		class Enum1(Enum):
@@ -102,8 +99,7 @@ class EnumTest(unittest.TestCase):
 		
 		self.assertGreater(Enum1.B, Enum1.A)
 		
-		with self.assertRaises(TypeError):
-			_ = Enum1.A > Enum2.A
+		self.assertRaises(TypeError, lambda: Enum1.A > Enum2.A)
 	
 	def test_repr_labels(self):
 		class MyEnum4(Enum):

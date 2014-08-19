@@ -23,7 +23,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.fields import NOT_PROVIDED
 from django.db.models.fields.subclassing import SubfieldBase
-from django.utils.encoding import smart_text
+
 import six
 
 from asymm_enum.enum import Enum, EnumItem
@@ -54,7 +54,7 @@ class EnumFormField(forms.TypedChoiceField):
 	
 	def prepare_value(self, data):
 		if isinstance(data, EnumItem):
-			return smart_text(data.value)
+			return str(data.value)
 		
 		return data
 	
