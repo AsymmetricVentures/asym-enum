@@ -51,6 +51,6 @@ setup(
 		'six',
 	),
 	
-	tests_require = ['django>=1.4.5'],
+	#tests_require = ['django>=1.4.5'], # Travis takes care of this
 	test_suite = 'run_tests.main',
 )
