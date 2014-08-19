@@ -30,6 +30,7 @@ except ImportError:
 	print("Error: six is required to run tests")
 	sys.exit(-1)
 
+djv = django.get_version()
 
 def main():
 	settings.configure(
@@ -39,7 +40,6 @@ def main():
 			'django.contrib.admin',
 			'django.contrib.sessions',
 			'asymm_enum.tests.testapp',
-			'asymm_enum'
 		),
 		DATABASE_ENGINE = 'django.db.backends.sqlite3',
 		DATABASES = {
@@ -52,11 +52,11 @@ def main():
 		TEMPLATE_DEBUG = True,
 		MIDDLEWARE_CLASSES = ()
 	)
-	if django.get_version() >= '1.7':
+	if djv >= '1.7':
 		django.setup() #@UndefinedVariable
 	
-	apps = ['asymm_enum']
-	if django.get_version() >= '1.6':
+	apps = ['asymm_enum'] if djv > '1.5' else []
+	if djv >= '1.6':
 		apps.append('asymm_enum.tests.testapp')
 		apps.append('asymm_enum.tests')
 	
