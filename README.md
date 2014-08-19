@@ -3,7 +3,7 @@
 
 An Enum implementation similar to flufl.enum and Python 3.4 enum, except behaves more like a Java enum
 
-![Travis Status](https://api.travis-ci.org/AsymmetricVentures/asym-enum.png?branch=master)
+[![Build Status](https://travis-ci.org/AsymmetricVentures/asym-enum.svg?branch=master)](https://travis-ci.org/AsymmetricVentures/asym-enum)
 
 
 ## Examples
