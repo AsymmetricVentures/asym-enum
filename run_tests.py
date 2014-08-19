@@ -50,7 +50,9 @@ def main():
 		},
 		DEBUG = True,
 		TEMPLATE_DEBUG = True,
-		MIDDLEWARE_CLASSES = (),
+		MIDDLEWARE_CLASSES = (
+			'django.contrib.messages.middleware.MessageMiddleware',
+		),
 		ROOT_URLCONF = 'testapp.urls'
 	)
 	if djv >= '1.7':
