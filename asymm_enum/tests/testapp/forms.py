@@ -25,7 +25,7 @@ from asymm_enum.fields.enumfield import EnumField
 
 from .models import TestEnum, TestEnumModel, TestEnumModel1, TestEnumModelWithDefault
 
-__author__ = "Richard Eames <reames@asymmetricventures.com"
+__author__ = "Richard Eames <reames@asymmetricventures.com>"
 __date__ = "May 20, 2014"
 __updated__ = "May 20, 2014"
 __rev__ = "$Id$"

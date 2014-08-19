@@ -5,7 +5,7 @@ from django.db import models
 from asymm_enum.enum import Enum
 from asymm_enum.fields.enumfield import EnumField
 
-__author__ = "Richard Eames <reames@asymmetricventures.com"
+__author__ = "Richard Eames <reames@asymmetricventures.com>"
 __date__ = "May 20, 2014"
 __updated__ = "May 20, 2014"
 __rev__ = "$Id$"
