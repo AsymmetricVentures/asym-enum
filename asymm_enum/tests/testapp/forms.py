@@ -44,5 +44,5 @@ class TestModelWithDefaultForm(forms.ModelForm):
 		model = TestEnumModelWithDefault
 		fields = ('field1',)
 
-TestModelFormSet = modelformset_factory(TestEnumModel1)
+TestModelFormSet = modelformset_factory(TestEnumModel1, fields=('field1', 'field2', 'field2'))
 TestFormSet = formset_factory(TestForm)

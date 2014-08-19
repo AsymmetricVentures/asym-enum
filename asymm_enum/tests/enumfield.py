@@ -16,12 +16,16 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import six
+
 import django
 from django.conf import settings
 from django.core.management import call_command
 from django.db import models
 from django.db.models import loading
 from django.utils import unittest
+
+import asymm_enum
 
 from ..fields.enumfield import EnumField
 from .testapp.models import TestEnumModel, TestEnum, TestEnumModelWithDefault
@@ -75,14 +79,20 @@ class TestEnumField(unittest.TestCase):
 		fields = {
 			'field1':EnumField(TestEnum)
 		}
-		migration = type(str("Migration"), (migrations.Migration), {
+		migration = type(str("Migration"), (migrations.Migration,), {
 			'operations' : [
 				migrations.CreateModel("Model1", tuple(fields.items()), {}, (models.Model))
 			]
 		})
 		writer = MigrationWriter(migration)
 		output = writer.as_string()
-		self.fail("Fixme")
+		self.assertIsInstance(output, six.binary_type)
+		r = {}
+		try:
+			exec(output, globals(), r)
+		except Exception as e:
+			self.fail("Could not exec {!r}: {}".format(output.strip(), e))
+		self.assertIn("Migration", r)
 
 
 if __name__ == "__main__":
