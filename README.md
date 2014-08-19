@@ -5,6 +5,11 @@ An Enum implementation similar to flufl.enum and Python 3.4 enum, except behaves
 
 [![Build Status](https://travis-ci.org/AsymmetricVentures/asym-enum.svg?branch=master)](https://travis-ci.org/AsymmetricVentures/asym-enum)
 
+Supports:
+
+* python 2.6, 2.7, 3.3, 3.4
+
+* django 1.4, 1.5, 1.6, 1.7
 
 ## Examples
 

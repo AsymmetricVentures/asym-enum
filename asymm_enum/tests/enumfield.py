@@ -16,8 +16,6 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import six
-
 import django
 from django.conf import settings
 from django.core.management import call_command
@@ -25,16 +23,15 @@ from django.db import models
 from django.db.models import loading
 from django.utils import unittest
 
-import asymm_enum
+import asymm_enum #@UnusedImport #This is just so that it's in `globals()`
+import six
 
 from ..fields.enumfield import EnumField
 from .testapp.models import TestEnumModel, TestEnum, TestEnumModelWithDefault
 
-
 if django.get_version() >= '1.7':
-	from django.db import migrations  # NOQA
-	from django.db.migrations.writer import MigrationWriter  # NOQA
-	from django.utils import six  # NOQA
+	from django.db import migrations  # NOQA @UnresolvedImport
+	from django.db.migrations.writer import MigrationWriter  # NOQA @UnresolvedImport
 
 class TestEnumField(unittest.TestCase):
 
