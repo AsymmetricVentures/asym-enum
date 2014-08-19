@@ -85,6 +85,17 @@ def main():
 			}
 			call_command('createsuperuser', **kwargs)
 			return result
+		
+		def build_suite(self, *args, **kwargs):
+			suite = super(TestRunner, self).build_suite(*args, **kwargs)
+			tests = []
+			for case in suite:
+				pkg = case.__class__.__module__
+				if not pkg.startswith('django'):
+					tests.append(case)
+			suite._tests = tests
+			return suite
+	
 	
 	failures = TestRunner(verbosity = 2, interactive = True).run_tests(apps)
 	sys.exit(failures)
