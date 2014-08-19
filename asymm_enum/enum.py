@@ -16,7 +16,6 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
-from functools import total_ordering
 import six
 
 try:
@@ -33,7 +32,6 @@ except ImportError:
 Inspired by flufl.enum
 """
 
-@total_ordering
 class EnumItem(object):
 	def __init__(self, **attrs):
 		self.__dict__.update(**attrs)
@@ -60,6 +58,10 @@ class EnumItem(object):
 		if isinstance(other, type(self)):
 			return self.value < other.value
 		raise TypeError("Cannot compare different Enums")
+	
+	__gt__ = lambda self, other: not (self < other or self == other)
+	__le__ = lambda self, other: self < other or self == other
+	__ge__ = lambda self, other: not self < other
 
 class EnumMeta(type):
 	

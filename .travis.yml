@@ -8,7 +8,6 @@ python:
 install:
   - pip install -q $DJANGO
   - if [[ $TRAVIS_PYTHON_VERSION = '2.6' ]]; then pip install ordereddict; fi
-  - python setup.py install
 
 script:
   - python setup.py test
