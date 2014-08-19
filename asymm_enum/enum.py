@@ -16,10 +16,13 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
-
-from collections import OrderedDict
 from functools import total_ordering
 import six
+
+try:
+	from collections import OrderedDict
+except ImportError
+	from ordereddict import OrderedDict
 
 try:
 	from itertools import zip_longest

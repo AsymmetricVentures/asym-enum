@@ -7,6 +7,7 @@ python:
 
 install:
   - pip install -q $DJANGO
+  - if [[ $TRAVIS_PYTHON_VERSION = '2.6' ]]; then pip install ordereddict; fi
   - python setup.py install
 
 script:
@@ -18,3 +19,8 @@ env:
   - DJANGO=Django==1.6
   - DJANGO="https://www.djangoproject.com/download/1.7c2/tarball/"
   - DJANGO="git+git://github.com/django/django.git@master#egg=django"
+ 
+matrix:
+  exclude:
+    - python: "2.6"
+      env: DJANGO="https://www.djangoproject.com/download/1.7c2/tarball/"
