@@ -22,5 +22,13 @@ env:
  
 matrix:
   exclude:
-    - python: "2.6"
+    - python: 2.6
       env: DJANGO="https://www.djangoproject.com/download/1.7c2/tarball/"
+    - python: 2.6
+      env: DJANGO="git+git://github.com/django/django.git@master#egg=django"
+    - python 3.4
+      env DJANGO=Django==1.4
+    - python 3.4
+      env DJANGO=Django==1.5
+    - python 3.4
+      env DJANGO=Django==1.6
