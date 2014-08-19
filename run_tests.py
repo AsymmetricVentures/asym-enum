@@ -50,7 +50,8 @@ def main():
 		},
 		DEBUG = True,
 		TEMPLATE_DEBUG = True,
-		MIDDLEWARE_CLASSES = ()
+		MIDDLEWARE_CLASSES = (),
+		ROOT_URLCONF = 'testapp.urls'
 	)
 	if djv >= '1.7':
 		django.setup() #@UndefinedVariable
