@@ -17,7 +17,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from django.test.client import RequestFactory
-from django.test.testcases import SimpleTestCase
+from django.test.testcases import SimpleTestCase, assert_and_parse_html
 from django.utils import unittest
 
 from .testapp.forms import TestModelForm, TestModelWithDefaultForm, TestFormSet
@@ -27,7 +27,22 @@ class FormTest(SimpleTestCase):
 	
 	def setUp(self):
 		self.factory = RequestFactory()
-		
+	
+	# Borrowed from django for compatibility with django 1.4
+	def assertInHTML(self, needle, haystack, count = None, msg_prefix = ''):
+		needle = assert_and_parse_html(self, needle, None,
+			'First argument is not valid HTML:')
+		haystack = assert_and_parse_html(self, haystack, None,
+			'Second argument is not valid HTML:')
+		real_count = haystack.count(needle)
+		if count is not None:
+			self.assertEqual(real_count, count,
+				msg_prefix + "Found %d instances of '%s' in response"
+				" (expected %d)" % (real_count, needle, count))
+		else:
+			self.assertTrue(real_count != 0,
+				msg_prefix + "Couldn't find '%s' in response" % needle)
+	
 	def test_validation1(self):
 		''''''
 		request = self.factory.post('/', {'field1' : '1'})
