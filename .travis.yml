@@ -7,29 +7,31 @@ python:
 
 install:
   - pip install -q $DJANGO
+  - django-admin --version
   - if [[ $TRAVIS_PYTHON_VERSION = '2.6' ]]; then pip install ordereddict; fi
 
 script:
   - python setup.py test
 
 env:
-  - DJANGO="Django>=1.4,<1.5"
-  - DJANGO="Django>=1.5,<1.6"
-  - DJANGO="Django>=1.6,<1.7"
+  - DJANGO="Django<1.5"
+  - DJANGO="Django<1.6"
+  - DJANGO="Django<1.7"
   - DJANGO="git+git://github.com/django/django.git@stable/1.7.x#egg=django"
   - DJANGO="git+git://github.com/django/django.git@master#egg=django"
- 
+
 matrix:
+  fast_finish: true
   exclude:
     - python: 2.6
       env: DJANGO="git+git://github.com/django/django.git@stable/1.7.x#egg=django"
     - python: 2.6
       env: DJANGO="git+git://github.com/django/django.git@master#egg=django"
     - python: 3.3
-      env: "DJANGO=Django>=1.4,<1.5"
+      env: "DJANGO=Django<1.5"
     - python: 3.4
-      env: "DJANGO=Django>=1.4,<1.5"
+      env: "DJANGO=Django<1.5"
     - python: 3.4
-      env: "DJANGO=Django>=1.5,<1.6"
+      env: "DJANGO=Django<1.6"
     - python: 3.4
-      env: "DJANGO=Django>=1.6,<1.7"
+      env: "DJANGO=Django<1.7"

@@ -39,6 +39,7 @@ def main():
 			'django.contrib.contenttypes',
 			'django.contrib.admin',
 			'django.contrib.sessions',
+			'asymm_enum',
 			'asymm_enum.tests.testapp',
 		),
 		DATABASE_ENGINE = 'django.db.backends.sqlite3',
