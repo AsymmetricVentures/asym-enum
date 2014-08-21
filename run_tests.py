@@ -56,7 +56,7 @@ def main():
 		),
 		ROOT_URLCONF = 'testapp.urls'
 	)
-	apps = []
+	apps = ['asymm_enum']
 	
 	if djv >= '1.7':
 		django.setup() #@UndefinedVariable
