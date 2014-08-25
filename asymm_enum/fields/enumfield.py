@@ -92,6 +92,7 @@ class EnumFormField(forms.TypedChoiceField):
 class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 	
 	empty_strings_allowed = False
+	validators = []
 	
 	def __init__(self, enum, *args, **kwargs):
 		self.enum = enum
