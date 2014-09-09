@@ -19,6 +19,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import django
 from django.conf import settings
 from django.core.management import call_command
+from django.core import exceptions
 from django.db import models
 from django.db.models import loading
 from django.utils import unittest
@@ -90,6 +91,15 @@ class TestEnumField(unittest.TestCase):
 		except Exception as e:
 			self.fail("Could not exec {!r}: {}".format(output.strip(), e))
 		self.assertIn("Migration", r)
+	
+	
+	def test_modelfield_validate(self):
+		obj = TestEnumModel()
+		field = TestEnumModel._meta.get_field_by_name('field1')[0]
+		
+		field.validate(TestEnum.VALUE1, obj)
+		with self.assertRaises(exceptions.ValidationError):
+			field.validate(0, obj)
 
 
 if __name__ == "__main__":

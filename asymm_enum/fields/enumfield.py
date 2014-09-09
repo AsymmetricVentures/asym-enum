@@ -141,7 +141,12 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 		return _enum_coerce(self, self.enum, value)
 	
 	def validate(self, value, model_instance):
-		return value in self.enum
+		if value not in self.enum:
+			raise exceptions.ValidationError(
+				self.error_messages['invalid_choice'],
+				code='invalid_choice',
+				params={'value': value},
+			)
 	
 	def get_prep_value(self, value):
 		if value in (None, ''):
