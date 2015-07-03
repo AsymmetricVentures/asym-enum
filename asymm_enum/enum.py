@@ -150,6 +150,13 @@ class EnumMeta(type):
 	def __iter__(self):
 		return iter(self.reverse.values())
 
+	def __contains__(self, item):
+		if not isinstance(item, EnumItem):
+			return False
+		if item._enum_type_ != self:
+			return False
+		return item.value in self.Choices
+
 class Enum(six.with_metaclass(EnumMeta)):
 	'''Baseclass for Enums. 
 	   ** DO NOT define methods in here'''
@@ -246,10 +253,14 @@ if __name__ == '__main__':
 	assert tuple(MyEnum4) == (MyEnum4.A, MyEnum4.B, MyEnum4.UPPER_CASE_WORD)
 	
 	assert MyEnum4.A in MyEnum4
+	assert MyEnum3.A not in MyEnum4
+	assert 'A' not in MyEnum4
 	
 	assert 1 not in MyEnum4
 	if 1 in MyEnum4:
 		assert False, 'Cannot test ints in Enums'
+	
+	assert MyEnum4.A in {MyEnum4.A, MyEnum4.B}, "Items should be hashable in sets"
 	
 	try:
 		class MyEnum5(Enum):
