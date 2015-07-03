@@ -260,7 +260,7 @@ if __name__ == '__main__':
 	if 1 in MyEnum4:
 		assert False, 'Cannot test ints in Enums'
 	
-	assert MyEnum4.A in {MyEnum4.A, MyEnum4.B}, "Items should be hashable in sets"
+	assert MyEnum4.A in set([MyEnum4.A, MyEnum4.B]), "Items should be hashable in sets"
 	
 	try:
 		class MyEnum5(Enum):
