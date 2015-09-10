@@ -104,6 +104,13 @@ class TestEnumField(unittest.TestCase):
 			self.fail("Could not exec {!r}: {}".format(output.strip(), e))
 		self.assertIn("Migration", r)
 	
+	@unittest.skipIf(django.get_version() < '1.7', "Migrations only in django > 1.7")
+	def test_migration_with_default_value(self):
+		'''
+		Need to make sure that default values get serialized.
+		'''
+		
+		MigrationWriter.serialize(EnumField(enum = TestEnum, default = TestEnum.VALUE1))
 	
 	def test_modelfield_validate(self):
 		obj = TestEnumModel()

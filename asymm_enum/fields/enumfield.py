@@ -183,7 +183,12 @@ class EnumField(ModelFieldBase):
 	def deconstruct(self):
 		name, path, args, kwargs = super(EnumField, self).deconstruct()
 		kwargs['enum'] = self.enum
-		kwargs['default'] = self.get_default()
+		default = self.get_default()
+		
+		if default is not None:
+			default = int(default)
+		
+		kwargs['default'] = default
 		
 		return name, path, args, kwargs
 
