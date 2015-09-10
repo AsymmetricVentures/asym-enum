@@ -7,9 +7,9 @@ An Enum implementation similar to flufl.enum and Python 3.4 enum, except behaves
 
 Supports:
 
-* python 2.6, 2.7, 3.3, 3.4
+* python 2.7, 3.3, 3.4
 
-* django 1.4, 1.5, 1.6, 1.7
+* django 1.7, 1.8
 
 ## Examples
 
