@@ -29,6 +29,7 @@ import six
 
 from ..fields.enumfield import EnumField
 from .testapp.models import TestEnumModel, TestEnum, TestEnumModelWithDefault
+from asymm_enum.tests.testapp.models import ConcreteModel1
 
 if django.get_version() >= '1.7':
 	from django.db import migrations  # NOQA @UnresolvedImport
@@ -49,6 +50,15 @@ class TestEnumField(unittest.TestCase):
 			TestEnumModel(field1 = TestEnum.VALUE2),
 			TestEnumModel(field1 = TestEnum.VALUE2),
 		))
+		
+		ConcreteModel1.objects.all().delete()
+		ConcreteModel1.objects.bulk_create([
+			ConcreteModel1(field1 = TestEnum.VALUE1, field2 = 'a'),
+			ConcreteModel1(field1 = TestEnum.VALUE1, field2 = 'a'),
+			ConcreteModel1(field1 = TestEnum.VALUE1, field2 = 'b'),
+			ConcreteModel1(field1 = TestEnum.VALUE2, field2 = 'a'),
+			ConcreteModel1(field1 = TestEnum.VALUE2, field2 = 'b'),
+		])
 		
 	def test_querying_by_enum_value(self):
 		''' Querying by Enum value '''
@@ -106,7 +116,25 @@ class TestEnumField(unittest.TestCase):
 		with self.assertRaises(exceptions.ValidationError):
 			# Should not be able to validate non EnumValues
 			field.validate(1, obj)
+	
+	def test_querying_with_abstract_field(self):
+		'''
+		This tests a bug that arose in django 1.8 if there are two models inheriting from an abstract model
+		which has a enum field.
+		The problem stems from the way django handles abstract models. If two models inherit the field, then the
+		related model of the field is set to the concrete model. Unfortunately, due to the way EnumField implemented
+		the `__deepcopy__` method, there was only ever one instance of that enum field across all models that inherit
+		from the abstract class and its related model was set to whichever the last model defined is. The result of this
+		is that when querying on models defined earlier, django will throw an exception because it thinks the query is 
+		for a field from another model, so it treats it as a proxy model, which it is not.
+		
+		End of traceback:
+			for int_model in opts.get_base_chain(model):
+			TypeError: 'NoneType' object is not iterable
 
+		'''
+		objs = [obj for obj in ConcreteModel1.objects.filter(field1 = TestEnum.VALUE1)]
+		self.assertEqual(len(objs), 3)
 
 if __name__ == "__main__":
 	#import sys;sys.argv = ['', 'Test.testName']

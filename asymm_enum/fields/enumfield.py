@@ -16,11 +16,11 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
+import copy
 
 import django
 from django import forms
 from django.core import exceptions
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.fields import NOT_PROVIDED
 
@@ -102,11 +102,10 @@ class EnumField(ModelFieldBase):
 		
 		super(EnumField, self).__init__(*args, **kwargs)
 	
-	def __copy__(self, *args, **kwargs):
-		return self
-	
-	def __deepcopy__(self, *args, **kwargs):
-		return self
+	def __deepcopy__(self, memo):
+		result = super(EnumField, self).__deepcopy__(memo)
+		result.enum = copy.deepcopy(self.enum, memo)
+		return result
 	
 	def get_default(self):
 		"""

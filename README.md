@@ -159,7 +159,7 @@ class MyModelForm(forms.ModelForm):
 
 ## Differences from Python 3.4 Enum
 
-* Custom attributes are automatically created and do not need and `__init__`
+* Custom attributes are automatically created and do not need an `__init__`
 * The special attribute `display_order` is used for the listing order
 * Members are unique by default
 * The ordinal value is required, and is required to be an int

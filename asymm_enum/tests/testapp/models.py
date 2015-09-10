@@ -25,3 +25,15 @@ class TestEnumModel1(models.Model):
 
 class TestEnumModelWithDefault(models.Model):
 	field1 = EnumField(TestEnum, default = TestEnum.VALUE1)
+
+class AbstractModel(models.Model):
+	class Meta:
+		abstract = True
+	
+	field1 = EnumField(TestEnum)
+
+class ConcreteModel1(AbstractModel):
+	field2 = models.CharField(max_length = 2)
+
+class ConcreteModel2(AbstractModel):
+	field2 = models.CharField(max_length = 2)
