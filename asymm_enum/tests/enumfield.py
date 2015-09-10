@@ -50,22 +50,24 @@ class TestEnumField(unittest.TestCase):
 			TestEnumModel(field1 = TestEnum.VALUE2),
 		))
 		
-	def test_querying1(self):
+	def test_querying_by_enum_value(self):
 		''' Querying by Enum value '''
 		self.assertEqual(TestEnumModel.objects.filter(field1 = TestEnum.VALUE1).count(), 3)
 		self.assertEqual(TestEnumModel.objects.filter(field1 = TestEnum.VALUE2).count(), 2)
+		self.assertEqual(TestEnumModel.objects.filter(field1 = TestEnum.VALUE3).count(), 0)
 	
-	def test_querying2(self):
+	def test_querying_by_string(self):
 		''' - Test querying by string value
 		    - Test that model fields gets converted to enum
 		'''
 		model1 = TestEnumModel.objects.filter(field1 = '1')
 		
 		self.assertEqual(model1[0].field1, TestEnum.VALUE1)
+		self.assertNotEqual(model1[0].field1, '1')
 		self.assertNotEqual(model1[0].field1, 1)
 		
 		
-	def test_get_default(self):
+	def test_save_get_default(self):
 		model = TestEnumModelWithDefault()
 		model.save()
 		
@@ -99,7 +101,11 @@ class TestEnumField(unittest.TestCase):
 		
 		field.validate(TestEnum.VALUE1, obj)
 		with self.assertRaises(exceptions.ValidationError):
+			# int(0) doesn't exist in the enum
 			field.validate(0, obj)
+		with self.assertRaises(exceptions.ValidationError):
+			# Should not be able to validate non EnumValues
+			field.validate(1, obj)
 
 
 if __name__ == "__main__":

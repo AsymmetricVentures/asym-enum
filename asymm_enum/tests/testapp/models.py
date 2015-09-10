@@ -13,6 +13,7 @@ __rev__ = "$Id$"
 class TestEnum(Enum):
 	VALUE1 = 1
 	VALUE2 = 2
+	VALUE3 = 3
 
 class TestEnumModel(models.Model):
 	field1 = EnumField(TestEnum)

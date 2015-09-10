@@ -31,7 +31,7 @@ License :: OSI Approved :: GNU General Public License v2 (GPLv2)
 Topic :: Software Development :: Libraries :: Application Frameworks
 """
 
-version = '0.3.5'
+version = '0.4.0'
 url = 'https://github.com/AsymmetricVentures/asym-enum'
 
 setup(
@@ -51,6 +51,5 @@ setup(
 		'six',
 	),
 	
-	#tests_require = ['django>=1.4.5'], # Travis takes care of this
 	test_suite = 'run_tests.main',
 )

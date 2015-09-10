@@ -59,12 +59,10 @@ def main():
 	)
 	apps = ['asymm_enum']
 	
-	if djv >= '1.7':
-		django.setup() #@UndefinedVariable
-	
-	if djv >= '1.6':
-		apps.append('asymm_enum.tests.testapp')
-		apps.append('asymm_enum.tests')
+	django.setup() #@UndefinedVariable
+
+	apps.append('asymm_enum.tests.testapp')
+	apps.append('asymm_enum.tests')
 	
 	from django.core.management import call_command
 	from django.test.utils import get_runner

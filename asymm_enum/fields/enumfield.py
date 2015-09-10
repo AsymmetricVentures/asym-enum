@@ -17,12 +17,12 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import django
 from django import forms
 from django.core import exceptions
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.fields import NOT_PROVIDED
-from django.db.models.fields.subclassing import SubfieldBase
 
 import six
 
@@ -78,18 +78,16 @@ class EnumFormField(forms.TypedChoiceField):
 					yield k2, v2
 			else:
 				yield k, v
+
+if django.VERSION < (1, 8):
+	from django.db.models.fields.subclassing import SubfieldBase
 	
-	def _has_changed(self, initial, data):
-		initial_value = initial if initial is not None else ''
-		try:
-			data = self.to_python(data)
-		except ValidationError:
-			return True
-		data_value = str(data.value) if data is not None else ''
-		
-		return initial_value != data_value
-		
-class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
+	ModelFieldBase = six.with_metaclass(SubfieldBase, models.IntegerField)
+else:
+	ModelFieldBase = models.IntegerField
+	
+
+class EnumField(ModelFieldBase):
 	
 	empty_strings_allowed = False
 	validators = []
@@ -129,11 +127,7 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 				default = self.default()
 			if default is None:
 				return None
-			if isinstance(default, six.integer_types):
-				return default
-			if isinstance(default, six.string_types):
-				return default
-			return str(default.value)
+			return _enum_coerce(self, self.enum, default)
 		# If the field doesn't have a default, then we punt to models.Field.
 		return super(EnumField, self).get_default()
 	
@@ -144,8 +138,8 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 		if value not in self.enum:
 			raise exceptions.ValidationError(
 				self.error_messages['invalid_choice'],
-				code='invalid_choice',
-				params={'value': value},
+				code = 'invalid_choice',
+				params = {'value': value},
 			)
 	
 	def get_prep_value(self, value):
@@ -153,6 +147,10 @@ class EnumField(six.with_metaclass(SubfieldBase, models.IntegerField)):
 			return None
 		
 		return int(value)
+	
+	# dj 1.8 support
+	def from_db_value(self, value, expression, connection, context):
+		return _enum_coerce(self, self.enum, value)
 	
 	def formfield(self, **kwargs):
 		include_blank = (self.blank or not (self.has_default() or 'initial' in kwargs))
