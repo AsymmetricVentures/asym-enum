@@ -18,7 +18,10 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 from django.test.client import RequestFactory
 from django.test.testcases import SimpleTestCase
-from django.utils import unittest
+try:
+	from django.utils import unittest
+except ImportError:
+	import unittest
 
 from .testapp.forms import TestModelForm, TestModelWithDefaultForm, TestFormSet
 from .testapp.models import TestEnum, TestEnumModel

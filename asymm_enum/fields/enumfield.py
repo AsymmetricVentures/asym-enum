@@ -147,9 +147,13 @@ class EnumField(ModelFieldBase):
 		
 		return int(value)
 	
-	# dj 1.8 support
-	def from_db_value(self, value, expression, connection, context):
-		return _enum_coerce(self, self.enum, value)
+	if django.VERSION < (2, 1):
+		# dj 1.8 support
+		def from_db_value(self, value, expression, connection, context):
+			return _enum_coerce(self, self.enum, value)
+	else:
+		def from_db_value(self, value, expression, connection):
+			return _enum_coerce(self, self.enum, value)
 	
 	def formfield(self, **kwargs):
 		include_blank = (self.blank or not (self.has_default() or 'initial' in kwargs))

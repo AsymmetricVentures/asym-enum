@@ -16,13 +16,18 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+try:
+	from django.utils import unittest
+except ImportError:
+	import unittest
+
 import django
 from django.conf import settings
 from django.core.management import call_command
 from django.core import exceptions
 from django.db import models
 from django.db.models import loading
-from django.utils import unittest
+
 
 import asymm_enum #@UnusedImport #This is just so that it's in `globals()`
 import six

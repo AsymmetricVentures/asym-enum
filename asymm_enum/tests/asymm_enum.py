@@ -17,7 +17,10 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from django.utils import unittest
+try:
+	from django.utils import unittest
+except ImportError:
+	import unittest
 
 from asymm_enum.enum import Enum
 
