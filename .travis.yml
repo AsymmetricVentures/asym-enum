@@ -18,10 +18,6 @@ script:
   - python setup.py test
 
 env:
-  - DJANGO=Django==1.7.11
-  - DJANGO=Django==1.8.19
-  - DJANGO=Django==1.9.13
-  - DJANGO=Django==1.10.8
   - DJANGO=Django==1.11.16
   - DJANGO=Django==2.0.9
   - DJANGO=Django==2.1.2
