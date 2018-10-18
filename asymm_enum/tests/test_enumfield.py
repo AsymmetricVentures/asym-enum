@@ -16,17 +16,15 @@
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-try:
-	from django.utils import unittest
-except ImportError:
-	import unittest
+import unittest
 
 import django
 from django.conf import settings
 from django.core.management import call_command
 from django.core import exceptions
 from django.db import models
-from django.db.models import loading
+#from django.db.models import loading
+from django.test import TestCase
 
 
 import asymm_enum #@UnusedImport #This is just so that it's in `globals()`
@@ -40,13 +38,10 @@ if django.get_version() >= '1.7':
 	from django.db import migrations  # NOQA @UnresolvedImport
 	from django.db.migrations.writer import MigrationWriter  # NOQA @UnresolvedImport
 
-class TestEnumField(unittest.TestCase):
+class TestEnumField(TestCase):
 
 	def setUp(self):
-		loading.cache.loaded = False
-		migrate = 'south' not in settings.INSTALLED_APPS
-		call_command('syncdb', verbosity = 0, migrate = migrate)
-		
+		#loading.cache.loaded = False
 		TestEnumModel.objects.all().delete()
 		TestEnumModel.objects.bulk_create((
 			TestEnumModel(field1 = TestEnum.VALUE1),
@@ -96,12 +91,12 @@ class TestEnumField(unittest.TestCase):
 		}
 		migration = type(str("Migration"), (migrations.Migration,), {
 			'operations' : [
-				migrations.CreateModel("Model1", tuple(fields.items()), {}, (models.Model))
+				migrations.CreateModel("Model1", tuple(fields.items()), {}, (models.Model,))
 			]
 		})
 		writer = MigrationWriter(migration)
 		output = writer.as_string()
-		self.assertIsInstance(output, six.binary_type)
+		self.assertIsInstance(output, six.string_types)
 		r = {}
 		try:
 			exec(output, globals(), r)
@@ -119,7 +114,7 @@ class TestEnumField(unittest.TestCase):
 	
 	def test_modelfield_validate(self):
 		obj = TestEnumModel()
-		field = TestEnumModel._meta.get_field_by_name('field1')[0]
+		field = TestEnumModel._meta.get_field('field1')
 		
 		field.validate(TestEnum.VALUE1, obj)
 		with self.assertRaises(exceptions.ValidationError):

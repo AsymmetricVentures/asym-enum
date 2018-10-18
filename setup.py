@@ -50,6 +50,4 @@ setup(
 	install_requires = (
 		'six',
 	),
-	
-	test_suite = 'run_tests.main',
 )

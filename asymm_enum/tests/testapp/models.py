@@ -5,20 +5,19 @@ from django.db import models
 from asymm_enum.enum import Enum
 from asymm_enum.fields.enumfield import EnumField
 
-__author__ = "Richard Eames <reames@asymmetricventures.com>"
-__date__ = "May 20, 2014"
-__updated__ = "May 20, 2014"
-__rev__ = "$Id$"
-
 class TestEnum(Enum):
 	VALUE1 = 1
 	VALUE2 = 2
 	VALUE3 = 3
 
 class TestEnumModel(models.Model):
+	class Meta:
+		app_label = 'testapp'
 	field1 = EnumField(TestEnum)
 
 class TestEnumModel1(models.Model):
+	class Meta:
+		app_label = 'testapp'
 	field1 = EnumField(TestEnum)
 	field2 = EnumField(TestEnum)
 	field3 = EnumField(TestEnum)
@@ -33,7 +32,11 @@ class AbstractModel(models.Model):
 	field1 = EnumField(TestEnum)
 
 class ConcreteModel1(AbstractModel):
+	class Meta:
+		app_label = 'testapp'
 	field2 = models.CharField(max_length = 2)
 
 class ConcreteModel2(AbstractModel):
+	class Meta:
+		app_label = 'testapp'
 	field2 = models.CharField(max_length = 2)

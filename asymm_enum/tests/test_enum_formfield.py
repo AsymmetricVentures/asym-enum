@@ -17,7 +17,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from django.test.client import RequestFactory
-from django.test.testcases import SimpleTestCase
+from django.test.testcases import TestCase
 try:
 	from django.utils import unittest
 except ImportError:
@@ -26,7 +26,7 @@ except ImportError:
 from .testapp.forms import TestModelForm, TestModelWithDefaultForm, TestFormSet
 from .testapp.models import TestEnum, TestEnumModel
 
-class FormTest(SimpleTestCase):
+class FormTest(TestCase):
 	
 	def setUp(self):
 		self.factory = RequestFactory()
