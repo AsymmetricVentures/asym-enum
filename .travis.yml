@@ -2,6 +2,7 @@ git:
     depth: 2
 
 language: python
+dist: xenial
 python:
   - 2.7
   - 3.5
@@ -27,3 +28,5 @@ matrix:
     env: DJANGO=Django==2.0.9
   - python: 2.7
     env: DJANGO=Django==2.1.2
+  - python: 3.7
+    env: DJANGO=Django==1.11.16

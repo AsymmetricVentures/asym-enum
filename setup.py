@@ -31,7 +31,7 @@ License :: OSI Approved :: GNU General Public License v2 (GPLv2)
 Topic :: Software Development :: Libraries :: Application Frameworks
 """
 
-version = '0.4.3'
+version = '0.5.0'
 url = 'https://github.com/AsymmetricVentures/asym-enum'
 
 setup(

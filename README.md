@@ -7,9 +7,9 @@ An Enum implementation similar to flufl.enum and Python 3.4 enum, except behaves
 
 Supports:
 
-* python 2.7, 3.3, 3.4, 3.5, 3.6, 3.7
+* python 2.7,3.5, 3.6, 3.7
 
-* django 1.7, 1.8, 1.9, 1.10, 1.11, 2.0, 2.1
+* django 1.11, 2.0, 2.1
 
 ## Examples
 
@@ -171,6 +171,5 @@ class MyModelForm(forms.ModelForm):
 ## TODO:
 
 * More complete test coverage
-* Testing for Django 1.7
 * Close the API gap with Python 3.4 Enums
 
